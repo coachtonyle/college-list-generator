@@ -24,19 +24,19 @@ logger = logging.getLogger(__name__)
 CSV_FILE = "hYLXTm.csv"
 API_KEY = None  # Key will be set dynamically
 
-def setup_openai():
+def setup_openai(api_key):
     """Setup OpenAI client based on installed version"""
     try:
         # Try newer OpenAI library style
         from openai import OpenAI
-        client = OpenAI(api_key=API_KEY)
+        client = OpenAI(api_key=api_key)
         # Test if we can use the client this way
         client.models.list()
         logger.info("Using OpenAI API version 1.0.0+")
         return client, True
     except (ImportError, AttributeError):
         # Fall back to older style
-        openai.api_key = API_KEY
+        openai.api_key = api_key
         logger.info("Using OpenAI API version <1.0.0")
         return openai, False
 

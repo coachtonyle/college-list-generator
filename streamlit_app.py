@@ -29,9 +29,7 @@ if uploaded_file and api_key:
     student_info = df.iloc[0].to_dict()
 
     with st.spinner("Generating document... this may take 1-2 minutes"):
-        global API_KEY
-        API_KEY = api_key
-        client, is_new_api = setup_openai()
+        client, is_new_api = setup_openai(api_key)
         openai.api_key = api_key
 
         overview = generate_overview_content(client, student_info, is_new_api)
